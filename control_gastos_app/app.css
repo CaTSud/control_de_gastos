@@ -1,0 +1,220 @@
+/* app.css - Estilos personalizados para emulación de iOS y transiciones */
+
+/* Ocultar barra de desplazamiento manteniendo funcionalidad */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Efectos de difuminado y sombras iOS */
+.ios-blur {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.ios-shadow {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Simulación de Contenedor de Dispositivo Móvil en Pantallas Grandes */
+body {
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: background-color 0.3s;
+}
+
+body.dark {
+    background-color: #0b0f19;
+}
+
+/* Contenedor del Simulador Móvil */
+#app-simulator {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background-color: #f6f6f8;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* En pantallas de escritorio, emulamos un iPhone de alta fidelidad */
+@media (min-width: 640px) {
+    #app-simulator {
+        width: 390px;
+        height: 844px;
+        border-radius: 48px;
+        border: 12px solid #1a202c; /* Borde del marco */
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 40px rgba(0,0,0,0.1);
+        transform: scale(0.95);
+        margin: 20px auto;
+    }
+    
+    /* Notch / Isla Dinámica simulada */
+    #app-simulator::before {
+        content: '';
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 110px;
+        height: 30px;
+        background-color: #1a202c;
+        border-radius: 20px;
+        z-index: 100;
+        pointer-events: none;
+    }
+}
+
+/* Contenedor para las Vistas Individuales */
+.app-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f6f8;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 10;
+    transition: background-color 0.3s;
+}
+
+#app-simulator.dark .app-view {
+    background-color: #101622;
+}
+
+/* Ocultar vistas inactivas de forma segura */
+.app-view.hidden-view {
+    display: none !important;
+}
+
+/* Animaciones de Transición iOS */
+.slide-in-right {
+    animation: slideInRight 0.35s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
+}
+
+.slide-out-left {
+    animation: slideOutLeft 0.35s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.35s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
+}
+
+.slide-out-right {
+    animation: slideOutRight 0.35s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
+}
+
+.fade-in {
+    animation: fadeIn 0.25s ease-out forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.2s ease-in forwards;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideOutLeft {
+    from { transform: translateX(0); opacity: 0.85; }
+    to { transform: translateX(-30%); opacity: 0.5; }
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-30%); opacity: 0.5; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOutRight {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Indicador de inicio de iOS inferior */
+.ios-home-indicator {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 5px;
+    background-color: #a0aec0;
+    border-radius: 10px;
+    z-index: 99;
+    pointer-events: none;
+}
+
+#app-simulator.dark .ios-home-indicator {
+    background-color: #4a5568;
+}
+
+/* Grupos de inputs iOS */
+.ios-input-group > div:not(:last-child) {
+    border-bottom: 1px solid rgba(17, 82, 212, 0.08);
+}
+#app-simulator.dark .ios-input-group > div:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Marcos escáner */
+.scanner-frame {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    position: relative;
+}
+
+.corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: #fff;
+    border-style: solid;
+}
+.top-left { top: -2px; left: -2px; border-width: 4px 0 0 4px; border-top-left-radius: 1rem; }
+.top-right { top: -2px; right: -2px; border-width: 4px 4px 0 0; border-top-right-radius: 1rem; }
+.bottom-left { bottom: -2px; left: -2px; border-width: 0 0 4px 4px; border-bottom-left-radius: 1rem; }
+.bottom-right { bottom: -2px; right: -2px; border-width: 0 4px 4px 0; border-bottom-right-radius: 1rem; }
+
+.camera-overlay {
+    background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.5) 100%);
+}
+
+/* Animación del escáner láser */
+.laser-line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #1152d4, transparent);
+    box-shadow: 0 0 8px #1152d4;
+    animation: laserScan 2.5s ease-in-out infinite;
+}
+
+@keyframes laserScan {
+    0% { top: 0%; }
+    50% { top: 100%; }
+    100% { top: 0%; }
+}

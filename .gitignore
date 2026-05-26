@@ -1,0 +1,39 @@
+# Dependencias
+node_modules/
+
+# Base de datos local (en producción se monta con volumen)
+backend/data/*.sqlite
+backend/data/*.sqlite-wal
+backend/data/*.sqlite-shm
+
+# Archivos subidos localmente (en producción se monta con volumen)
+backend/uploads/tickets/*
+backend/uploads/extractos/*
+!backend/uploads/tickets/.gitkeep
+!backend/uploads/extractos/.gitkeep
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Entorno
+.env
+.env.local
+.env.production
+
+# Stitch / Gemini
+stitch_expense_tracker/
+
+# Claude Code
+.claude/
+
+# Plan de implementación (doc interno)
+implementation_plan.md
