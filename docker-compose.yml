@@ -1,15 +1,17 @@
-version: "3.8"
-
 services:
   control-gastos:
     build: .
     container_name: control-gastos-app
     restart: unless-stopped
-    ports:
-      - "3000:3000"
+    networks:
+      - dokploy-network
     volumes:
       - ./data:/app/backend/data
       - ./uploads:/app/backend/uploads
     environment:
       - NODE_ENV=production
       - PORT=3000
+
+networks:
+  dokploy-network:
+    external: true
