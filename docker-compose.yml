@@ -11,6 +11,12 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.control-gastos.rule=Host(`control-gastos.transportscatsud.es`)"
+      - "traefik.http.routers.control-gastos.entrypoints=websecure"
+      - "traefik.http.routers.control-gastos.tls.certresolver=letsencrypt"
+      - "traefik.http.services.control-gastos.loadbalancer.server.port=3000"
 
 networks:
   dokploy-network:
